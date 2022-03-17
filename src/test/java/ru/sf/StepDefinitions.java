@@ -18,43 +18,63 @@ import static org.junit.Assert.assertEquals;
 public class StepDefinitions {
 
     public static final WebDriver webDriver;
-    public static final ChooseCityPage chooseCityPage;
     public static final CityMenuPage cityMenuPage;
+    public static final PizzaOptionsPage pizzaOptionsPage;
+    public static final PizzaCartPage pizzaCartPage;
+    public static final PizzaContactPage pizzaContactPage;
 
     //Процесс инициализации необходимых ресурсов
     static {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\amidi\\IdeaProjects\\сс-scenario\\src\\test\\resources\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         webDriver.manage().window().maximize();
-        chooseCityPage = new ChooseCityPage(webDriver);
         cityMenuPage = new CityMenuPage(webDriver);
+        pizzaOptionsPage = new PizzaOptionsPage(webDriver);
+        pizzaCartPage = new PizzaCartPage(webDriver);
+        pizzaContactPage = new PizzaContactPage(webDriver);
     }
 
     //Реализация шага
-    //Текст должен строго соответствоать тексту сценария
     @Given("url of restaurant {string}")
     public void url_of_restaurant(String url) {
-        chooseCityPage.go(url);
+        cityMenuPage.go(url);
     }
 
-    //Реализация шага
-    @Then("chose city {string}")
-    public void chose_city(String city) {
-        chooseCityPage.searchCity(city);
+    @Then("chose pizza item {string}")
+    public void chose_pizza_item(String pizza_item) {
+        cityMenuPage.chose_pizza_item(pizza_item);
     }
 
-    //Реализация шага
-    @Then("assert that chosen city is {string}")
-    public void assert_that_chosen_city_is(String expectedCity) {
-        final var currentActiveCity = cityMenuPage.getCurrentActiveCity();
-        assertEquals(expectedCity, currentActiveCity);
+    @Then("chose pizza supplement")
+    public void chose_pizza_supplement() {
+        pizzaOptionsPage.chose_pizza_supplement();
     }
 
-    //Реализация шага
-    @Then("assert that user got message {string}")
-    public void assert_that_user_got_message(String errorMessage) {
-        final var cityNotFoundMessage = chooseCityPage.getCityNotFoundMessage();
-        assertEquals(errorMessage, cityNotFoundMessage);
+    @Then("click add button in shopping cart")
+    public void click_add_button_in_shopping_cart() {
+        pizzaOptionsPage.click_add_button_in_shopping_cart();
+    }
+
+    @Then("click shopping cart button")
+    public void click_shopping_cart_button() {
+        cityMenuPage.click_shopping_cart_button();
+    }
+
+    @Then("assert that appears notification text {string}")
+    public void assert_that_appears_notification_text(String errorMessage) {
+        final var spotNotFoundNotification = pizzaContactPage.getNotification();
+        assertEquals(errorMessage, spotNotFoundNotification);
+    }
+
+    @Then("assert cart has pizza_name {string}")
+    public void assert_cart_has_item_with_pizza_name(String pizza_name) {
+        final var choosenPizzaName = pizzaCartPage.get_pizza_name();
+        assertEquals(pizza_name, choosenPizzaName);
+    }
+
+    @Then("add city {string}")
+    public void add_city(String city) {
+        pizzaContactPage.add_city(city);
     }
 }
