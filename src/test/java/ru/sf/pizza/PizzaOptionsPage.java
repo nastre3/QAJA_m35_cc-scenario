@@ -1,4 +1,4 @@
-package ru.sf;
+package ru.sf.pizza;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
