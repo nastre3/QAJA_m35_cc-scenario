@@ -27,6 +27,8 @@ public record CoursesPage(WebDriver webDriver) {
     }
 
     public void clickFilter(int optionNumber) {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.elementToBeClickable(webDriver.findElement(By.className(COURSE_OPTIONS_CLASS))));
         webDriver.findElements(By.className(COURSE_OPTIONS_CLASS)).get(optionNumber).click();
     }
 
