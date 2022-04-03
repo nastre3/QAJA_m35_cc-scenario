@@ -1,8 +1,7 @@
-package ru.sf.school;
+package ru.sf.websitePages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public record RegistrationPage(WebDriver webDriver) {
     private final static String REGISTER_COUNTRY_ID = "register-country";
     private final static String OPTIONAL_CHECKBOX_ID = "toggle_optional_fields";
-    private final static String GENDER_ID = "toggle_optional_fields";
+    private final static String GENDER_ID = "register-gender";
     private final static String BIRTHDAY_ID = "register-year_of_birth-optional-label";
     private final static String EDUCATION_ID = "register-level_of_education-optional-label";
     private final static String MESSAGE_ID = "register-goals";
@@ -49,6 +48,7 @@ public record RegistrationPage(WebDriver webDriver) {
     }
 
     public void clickCheckboxOptionalFields() {
+        webDriver.findElement(By.id(OPTIONAL_CHECKBOX_ID)).click();
     }
 
     public void fillOptionalFields(String gender, String birthday, String education, String message) {

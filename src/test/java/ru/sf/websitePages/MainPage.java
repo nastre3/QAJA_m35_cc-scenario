@@ -1,4 +1,4 @@
-package ru.sf.school;
+package ru.sf.websitePages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -30,6 +30,5 @@ public record MainPage(WebDriver webDriver) {
         for (int i = 0; i < 8; i++) {
             webDriver.findElements(By.className(ICON_LIST_CLASS)).get(i).click();
         }
-        assertEquals(webDriver().getCurrentUrl(), "");
     }
 }

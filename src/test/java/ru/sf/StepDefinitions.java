@@ -6,11 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.sf.pizza.CityMenuPage;
-import ru.sf.pizza.PizzaCartPage;
-import ru.sf.pizza.PizzaContactPage;
-import ru.sf.pizza.PizzaOptionsPage;
-import ru.sf.school.*;
+import ru.sf.websitePages.*;
 
 import java.time.Duration;
 
@@ -219,5 +215,36 @@ public class StepDefinitions {
         accountSettingsPage.changeTimeZone(timeZone);
     }
 
+    @Then("select education {string}")
+    public void select_education(String education) {
+        accountSettingsPage.selectEducation(education);
+    }
+    @Then("select gender {string}")
+    public void select_gender(String gender) {
+        accountSettingsPage.selectGender(gender);
+    }
+    @Then("select birthday {string}")
+    public void select_birthday(String birthdayYear) {
+        accountSettingsPage.selectBirthday(birthdayYear);
+    }
+    @Then("select language {string}")
+    public void select_language(String language) {
+        accountSettingsPage.selectLanguage(language);
+    }
 
+
+    @Then("add twitter link {string}")
+    public void addTwitterLinkHttpsWwwTwitterComTest(String twitter) {
+        accountSettingsPage.addTwitterLink(twitter);
+    }
+
+    @Then("add facebook link {string}")
+    public void addFacebookLinkHttpsWwwFacebookComTest(String facebook) {
+        accountSettingsPage.addFacebookLink(facebook);
+    }
+
+    @Then("add linkedin link {string}")
+    public void addLinkedinLinkWwwLinkedinComInTest(String linkedin) {
+        accountSettingsPage.addLinkedinLink(linkedin);
+    }
 }

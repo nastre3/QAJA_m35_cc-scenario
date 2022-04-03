@@ -1,4 +1,4 @@
-package ru.sf.school;
+package ru.sf.websitePages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -32,6 +32,8 @@ public record DashboardPage(WebDriver webDriver) {
     }
 
     public void assertSearchResultNotFound() {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.presenceOfElementLocated((By.className("search-count"))));
         String actualSearchResult = webDriver.findElement(By.className("search-count")).getText();
         assertEquals("0 results", actualSearchResult);
     }
@@ -42,7 +44,6 @@ public record DashboardPage(WebDriver webDriver) {
 
     public void clickRightMenu() {
         webDriver.findElement(By.className("toggle-user-dropdown")).click();
-
     }
 
     public void clickAccountSettings() {

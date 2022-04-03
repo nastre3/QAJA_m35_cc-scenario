@@ -1,4 +1,4 @@
-package ru.sf.school;
+package ru.sf.websitePages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
