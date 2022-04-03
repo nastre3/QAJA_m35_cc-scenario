@@ -2,12 +2,12 @@ package ru.sf.school;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,16 +18,24 @@ public record RegistrationPage(WebDriver webDriver) {
     private final static String BIRTHDAY_ID = "register-year_of_birth-optional-label";
     private final static String EDUCATION_ID = "register-level_of_education-optional-label";
     private final static String MESSAGE_ID = "register-goals";
+    private final static String ERROR_EMAIL_ID = "register-email-validation-error-msg";
+    private final static String ERROR_NAME_ID = "register-name-validation-error-msg";
+    private final static String ERROR_LOGIN_ID = "register-username-validation-error-msg";
+    private static final String ERROR_PASSWORD_ID = "register-password-validation-error-msg";
     public static long now = System.currentTimeMillis();
     public static String filledLogin = String.format("login%s", now);
 
-    public void fillRegistrationForm(String email, String fullName, String login, String password) {
-        email = String.format("user%s@mail.com", now);
+    public void fillRegistrationForm(String s, String email, String fullName, String password) {
+        email = String.format("user%s@mail.ru", now);
         fullName = String.format("fullName%s", now);
         password = String.format("password", now);
+        fillRegisterForm(email, fullName, filledLogin, password);
+    }
+
+    private void fillRegisterForm(String email, String fullName, String login, String password) {
         webDriver.findElement(By.id("register-email")).sendKeys(email);
         webDriver.findElement(By.id("register-name")).sendKeys(fullName);
-        webDriver.findElement(By.id("register-username")).sendKeys(filledLogin);
+        webDriver.findElement(By.id("register-username")).sendKeys(login);
         webDriver.findElement(By.id("register-password")).sendKeys(password);
     }
 
@@ -41,14 +49,11 @@ public record RegistrationPage(WebDriver webDriver) {
     }
 
     public void clickCheckboxOptionalFields() {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20)); // явное ожидание (explicit), 60 - максимальное кол-во сек ожидания
-        wait.until(ExpectedConditions.elementToBeClickable(By.className(OPTIONAL_CHECKBOX_ID)));
-        webDriver.findElement(By.className(OPTIONAL_CHECKBOX_ID)).click();
     }
 
     public void fillOptionalFields(String gender, String birthday, String education, String message) {
         Select drpGender = new Select(webDriver.findElement((By.id(GENDER_ID))));
-        drpGender.selectByVisibleText(gender);
+        drpGender.selectByValue(gender);
 
         Select drpBirthday = new Select(webDriver.findElement((By.id(BIRTHDAY_ID))));
         drpBirthday.selectByVisibleText(birthday);
@@ -60,9 +65,45 @@ public record RegistrationPage(WebDriver webDriver) {
     }
 
     public void assertCorrectLoginShown() {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20)); // явное ожидание (explicit), 60 - максимальное кол-во сек ожидания
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("username")));
         String currentLogin = webDriver.findElement(By.className("username")).getText();
         assertEquals(filledLogin, currentLogin);
+    }
+
+    public void fillRegistrationFormIncorrectly(String email, String fullName, String login, String password) {
+        fillRegisterForm(email, fullName, login, password);
+    }
+
+    public void assertEmptyErrorNotifications() {
+        WebDriverWait(By.id(ERROR_EMAIL_ID),
+                "Введите корректный адрес электронной почты, который содержит не менее 3 символов.");
+        WebDriverWait(By.id(ERROR_NAME_ID), "Введите ваше имя.");
+        WebDriverWait(By.id(ERROR_LOGIN_ID), "Имя пользователя должно быть длиной от 2 до 30 символов.");
+        WebDriverWait(By.id(ERROR_PASSWORD_ID),
+                "Введённый пароль слишком короткий. Он должен содержать как минимум 2 символа.");
+    }
+
+    public void assertWrongErrorNotifications(String email, String login) {
+        String formatedEmail = String.format("\"%s\" не является корректным адресом электронной почты.", email);
+        WebDriverWait(By.id(ERROR_EMAIL_ID), formatedEmail);
+        WebDriverWait(By.id(ERROR_LOGIN_ID), "Кажется " + login +
+                " уже используется. Попробуйте ещё раз с другим именем пользователя.");
+        WebDriverWait(By.id(ERROR_PASSWORD_ID),
+                "Введённый пароль слишком похож на адрес электронной почты.");
+    }
+
+    private void WebDriverWait(By locator, String searchedText) {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.textToBePresentInElement(webDriver.findElement(locator),
+                searchedText)
+        );
+    }
+
+    public void assertCorrectLoginShown(String login) {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("username")));
+        String currentLogin = webDriver.findElement(By.className("username")).getText();
+        assertEquals(login, currentLogin);
     }
 }

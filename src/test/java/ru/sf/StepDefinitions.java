@@ -4,17 +4,13 @@ import io.cucumber.java.BeforeStep;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import org.junit.Before;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.sf.pizza.CityMenuPage;
 import ru.sf.pizza.PizzaCartPage;
 import ru.sf.pizza.PizzaContactPage;
 import ru.sf.pizza.PizzaOptionsPage;
-import ru.sf.school.CoursesPage;
-import ru.sf.school.MainPage;
-import ru.sf.school.RegistrationPage;
+import ru.sf.school.*;
 
 import java.time.Duration;
 
@@ -29,13 +25,13 @@ import static org.junit.Assert.assertEquals;
 public class StepDefinitions {
 
     public static final WebDriver webDriver;
-    public static final CityMenuPage cityMenuPage;
-    public static final PizzaOptionsPage pizzaOptionsPage;
-    public static final PizzaCartPage pizzaCartPage;
-    public static final PizzaContactPage pizzaContactPage;
     public static final MainPage mainPage;
     public static final CoursesPage coursesPage;
     public static final RegistrationPage registrationPage;
+    public static final LoginPage loginPage;
+    public static final DashboardPage dashboardPage;
+    public static final AccountPage accountPage;
+    public static final AccountSettingsPage accountSettingsPage;
 
     //Процесс инициализации необходимых ресурсов
     static {
@@ -43,13 +39,13 @@ public class StepDefinitions {
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         webDriver.manage().window().maximize();
-        cityMenuPage = new CityMenuPage(webDriver);
-        pizzaOptionsPage = new PizzaOptionsPage(webDriver);
-        pizzaCartPage = new PizzaCartPage(webDriver);
-        pizzaContactPage = new PizzaContactPage(webDriver);
         mainPage = new MainPage(webDriver);
         coursesPage = new CoursesPage(webDriver);
         registrationPage = new RegistrationPage(webDriver);
+        loginPage = new LoginPage(webDriver);
+        dashboardPage = new DashboardPage(webDriver);
+        accountPage = new AccountPage(webDriver);
+        accountSettingsPage = new AccountSettingsPage(webDriver);
     }
 
     @BeforeStep
@@ -57,47 +53,6 @@ public class StepDefinitions {
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-    //Реализация шага
-    @Given("url of restaurant {string}")
-    public void url_of_restaurant(String url) {
-        cityMenuPage.go(url);
-    }
-
-    @Then("chose pizza item")
-    public void chose_pizza_item() {
-        cityMenuPage.chose_pizza_item();
-    }
-
-    @Then("chose pizza supplement")
-    public void chose_pizza_supplement() {
-        pizzaOptionsPage.chose_pizza_supplement();
-    }
-
-    @Then("click add button in shopping cart")
-    public void click_add_button_in_shopping_cart() {
-        pizzaOptionsPage.click_add_button_in_shopping_cart();
-    }
-
-    @Then("click shopping cart button")
-    public void click_shopping_cart_button() {
-        cityMenuPage.click_shopping_cart_button();
-    }
-
-
-
-    @Then("assert cart has pizza_name {string}")
-    public void assert_cart_has_item_with_pizza_name(String pizza_name) {
-        final var choosenPizzaName = pizzaCartPage.get_pizza_name();
-        assertEquals(pizza_name, choosenPizzaName);
-    }
-
-    @Then("add city {string}")
-    public void add_city(String city) {
-        pizzaContactPage.add_city(city);
-    }
-
-
-    // new
     @Given("url of school {string}")
     public void url_of_school(String url) {
         mainPage.go(url);
@@ -144,10 +99,12 @@ public class StepDefinitions {
     }
 
     @Then("fill registration form with email {string}, fullName {string}, login {string}, password {string}, country {string}")
-    public void fill_registration_form_with_email_full_name_login_password_country(String email, String fullName, String login, String password, String country) {
+    public void fill_registration_form_with_email_full_name_login_password_country
+            (String email, String fullName, String login, String password, String country) {
         registrationPage.fillRegistrationForm(email, fullName, login, password);
         registrationPage.selectCountry(country);
     }
+
     @Then("click button create account")
     public void click_button_create_account() {
         registrationPage.clickButtonCreateAccount();
@@ -167,4 +124,100 @@ public class StepDefinitions {
     public void assertThatCorrectLoginTestLoginIsShown() {
         registrationPage.assertCorrectLoginShown();
     }
+
+    @Then("fill registration form incorrectly with email {string}, fullName {string}, login {string}, password {string}, country {string}")
+    public void fill_registration_form_incorrectly_with_email_full_name_login_password_country(String email, String fullName, String login, String password, String country) {
+        registrationPage.fillRegistrationFormIncorrectly(email, fullName, login, password);
+        registrationPage.selectCountry(country);
+    }
+
+    @And("assert that empty error notifications appear")
+    public void assertThatEmptyErrorNotificationsAppear() {
+        registrationPage.assertEmptyErrorNotifications();
+    }
+
+    @And("assert that wrong error notifications appear: wrong email {string}, wrong login {string}")
+    public void assertThatWrongErrorNotificationsAppear(String email, String login) {
+        registrationPage.assertWrongErrorNotifications(email, login);
+    }
+
+    @Then("fill login form incorrectly with email {string}, password {string}")
+    public void fill_login_form_incorrectly_with_email_password(String email, String password) {
+        loginPage.fillLoginFormIncorrectly(email, password);
+    }
+
+    @Then("click button login")
+    public void click_button_login() {
+        loginPage.clickLoginButton();
+    }
+
+    @Then("assert that empty login error notifications appear {string}")
+    public void assert_that_empty_login_error_notifications_appear(String emptyLoginError) {
+        loginPage.assertLoginError(emptyLoginError);
+    }
+
+    @And("assert that correct login is shown {string}")
+    public void assertThatCorrectLoginIsShownLogin(String login) {
+        registrationPage.assertCorrectLoginShown(login);
+    }
+
+    @Then("click button search courses")
+    public void clickButtonSearchCourses() {
+        dashboardPage.ButtonSearchCourses();
+    }
+
+    @Then("assert that correct page is opened {string}")
+    public void assert_that_correct_page_is_opened(String openedURL) {
+        dashboardPage.assertOpenedURL(openedURL);
+    }
+
+    @Then("fill search input {string}")
+    public void fill_search_input(String searchedPhrase) throws InterruptedException {
+        dashboardPage.fillSearchInput(searchedPhrase);
+    }
+    @Then("assert that no results were found")
+    public void assert_that_no_results_were_found() {
+       dashboardPage.assertSearchResultNotFound();
+    }
+
+    @Then("change photo")
+    public void clickChangePhotoButton() {
+        accountPage.changePhoto();
+    }
+
+    @Then("click button Profile")
+    public void clickButtonProfile() {
+        dashboardPage.clickButtonProfile();
+    }
+
+    @Then("change photo wrongly")
+    public void changePhotoWrongly() {
+        accountPage.changePhotoWrongly();
+    }
+
+    @Then("open rightMenuPanel")
+    public void open_right_menu_panel() {
+        dashboardPage.clickRightMenu();
+    }
+
+    @Then("click accountSettings")
+    public void click_account_settings() {
+        dashboardPage.clickAccountSettings();
+    }
+
+    @Then("change full name {string}")
+    public void change_full_name(String newName) {
+        accountSettingsPage.changeFullName(newName);
+    }
+
+    @Then("select country {string}")
+    public void change_country(String country) {
+        accountSettingsPage.selectCountry(country);
+    }
+    @Then("change timezone {string}")
+    public void change_timezone(String timeZone) {
+        accountSettingsPage.changeTimeZone(timeZone);
+    }
+
+
 }

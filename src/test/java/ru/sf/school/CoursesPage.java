@@ -19,8 +19,9 @@ public record CoursesPage(WebDriver webDriver) {
 
     public String getSearchStatusLabel() {
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20)); // явное ожидание (explicit), 60 - максимальное кол-во сек ожидания
-        wait.until(ExpectedConditions.textToBePresentInElement(webDriver.findElement(By.id(COURSE_STATUS_LABEL_CLASS)), "Нет результатов для «unknown»."));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.textToBePresentInElement(webDriver.findElement(By.id(COURSE_STATUS_LABEL_CLASS)),
+                "Нет результатов для «unknown»."));
         final var searchStatusLabel = webDriver.findElement(By.id(COURSE_STATUS_LABEL_CLASS)).getText();
         return searchStatusLabel;
     }
@@ -31,7 +32,7 @@ public record CoursesPage(WebDriver webDriver) {
 
     public String getCourseOrganization() {
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20)); // явное ожидание (explicit), 60 - максимальное кол-во сек ожидания
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.textToBe(By.className(COURSE_ORGANIZATION_CLASS), "Internetcollege"));
         return webDriver.findElement(By.className(COURSE_ORGANIZATION_CLASS)).getText();
     }
