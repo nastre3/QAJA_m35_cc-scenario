@@ -11,7 +11,7 @@ public record AccountSettingsPage(WebDriver webDriver) {
     private final static String EDUCATION_ID = "u-field-select-level_of_education";
     private final static String GENDER_ID = "u-field-select-gender";
     private final static String BIRTHDAY_YEAR_ID = "u-field-select-year_of_birth";
-    private final static String LANGUAGE_ID = "u-field-select-year_of_birth";
+    private final static String LANGUAGE_ID = "u-field-select-language_proficiencies";
 
     public void changeFullName(String newName) {
         webDriver.findElement(By.id("field-input-name")).clear();

@@ -61,7 +61,7 @@ Feature: SkillFactory ui-tests
     Then select education 'Бакалавриат'
     Then select gender 'Женский'
     Then select birthday '1992'
-    Then select language 'Afar'
+    Then select language 'Aragonese'
   # Позитивный сценарий: добавление ссылок социальных сетей в настройках аккаунта
   Scenario: add social links in profile
     Given url of school 'https://lms.skillfactory.ru/dashboard'

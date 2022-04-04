@@ -32,7 +32,7 @@ public record DashboardPage(WebDriver webDriver) {
     }
 
     public void assertSearchResultNotFound() {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.presenceOfElementLocated((By.className("search-count"))));
         String actualSearchResult = webDriver.findElement(By.className("search-count")).getText();
         assertEquals("0 results", actualSearchResult);

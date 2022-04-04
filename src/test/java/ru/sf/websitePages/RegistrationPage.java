@@ -14,8 +14,8 @@ public record RegistrationPage(WebDriver webDriver) {
     private final static String REGISTER_COUNTRY_ID = "register-country";
     private final static String OPTIONAL_CHECKBOX_ID = "toggle_optional_fields";
     private final static String GENDER_ID = "register-gender";
-    private final static String BIRTHDAY_ID = "register-year_of_birth-optional-label";
-    private final static String EDUCATION_ID = "register-level_of_education-optional-label";
+    private final static String BIRTHDAY_ID = "register-year_of_birth";
+    private final static String EDUCATION_ID = "register-level_of_education";
     private final static String MESSAGE_ID = "register-goals";
     private final static String ERROR_EMAIL_ID = "register-email-validation-error-msg";
     private final static String ERROR_NAME_ID = "register-name-validation-error-msg";
@@ -48,7 +48,7 @@ public record RegistrationPage(WebDriver webDriver) {
     }
 
     public void clickCheckboxOptionalFields() {
-        webDriver.findElement(By.id(OPTIONAL_CHECKBOX_ID)).click();
+            webDriver.findElement(By.id(OPTIONAL_CHECKBOX_ID)).click();
     }
 
     public void fillOptionalFields(String gender, String birthday, String education, String message) {
@@ -94,7 +94,7 @@ public record RegistrationPage(WebDriver webDriver) {
     }
 
     private void WebDriverWait(By locator, String searchedText) {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.textToBePresentInElement(webDriver.findElement(locator),
                 searchedText)
         );
