@@ -1,4 +1,4 @@
-package ru.sf.websitePages;
+package ru.sf.pages.lms;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public record AccountPage(WebDriver webDriver) {
+public record LMSAccountPage(WebDriver webDriver) {
     public void changePhoto() {
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.presenceOfElementLocated((By.className("upload-button-input"))));

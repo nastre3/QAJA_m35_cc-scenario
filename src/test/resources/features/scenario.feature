@@ -1,5 +1,5 @@
 #Gherkin
-Feature: SkillFactory ui-tests
+Feature: SkillFactory ui-tests on lms.skillfactory.ru
   # Позитивный сценарий: вводим название курса в поиске, получаем найденный курс
   Scenario: find course by typing course name in search field
     Given url of school 'https://lms.skillfactory.ru/'

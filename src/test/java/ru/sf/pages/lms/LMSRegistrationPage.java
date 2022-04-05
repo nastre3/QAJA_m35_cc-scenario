@@ -1,4 +1,4 @@
-package ru.sf.websitePages;
+package ru.sf.pages.lms;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +10,7 @@ import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
 
-public record RegistrationPage(WebDriver webDriver) {
+public record LMSRegistrationPage(WebDriver webDriver) {
     private final static String REGISTER_COUNTRY_ID = "register-country";
     private final static String OPTIONAL_CHECKBOX_ID = "toggle_optional_fields";
     private final static String GENDER_ID = "register-gender";

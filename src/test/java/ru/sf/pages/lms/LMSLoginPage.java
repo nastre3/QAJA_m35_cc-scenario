@@ -1,11 +1,11 @@
-package ru.sf.websitePages;
+package ru.sf.pages.lms;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import static org.junit.Assert.assertEquals;
 
-public record LoginPage(WebDriver webDriver) {
+public record LMSLoginPage(WebDriver webDriver) {
     public void fillLoginFormIncorrectly(String email, String password) {
         webDriver.findElement(By.id("login-email")).sendKeys(email);
         webDriver.findElement(By.id("login-password")).sendKeys(password);

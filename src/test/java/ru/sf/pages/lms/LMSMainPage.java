@@ -1,4 +1,4 @@
-package ru.sf.websitePages;
+package ru.sf.pages.lms;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 import static org.junit.Assert.assertEquals;
 
-public record MainPage(WebDriver webDriver) {
+public record LMSMainPage(WebDriver webDriver) {
     private final static String SEARCH_INPUT_CLASS = "search-input";
     private final static String FOOTER_LIST_ITEMS_CLASS = "footer-list_link";
     private final static String ICON_LIST_CLASS = "icon-list_icon";

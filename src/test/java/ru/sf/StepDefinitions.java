@@ -6,7 +6,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.sf.websitePages.*;
+import ru.sf.pages.lms.*;
+import ru.sf.pages.website.EventsPage;
+import ru.sf.pages.website.MainPage;
 
 import java.time.Duration;
 
@@ -21,13 +23,15 @@ import static org.junit.Assert.assertEquals;
 public class StepDefinitions {
 
     public static final WebDriver webDriver;
+    public static final LMSMainPage lmsMainPage;
+    public static final LMSCoursesPage coursesPage;
+    public static final LMSRegistrationPage registrationPage;
+    public static final LMSLoginPage loginPage;
+    public static final LMSDashboardPage dashboardPage;
+    public static final LMSAccountPage accountPage;
+    public static final LMSAccountSettingsPage accountSettingsPage;
     public static final MainPage mainPage;
-    public static final CoursesPage coursesPage;
-    public static final RegistrationPage registrationPage;
-    public static final LoginPage loginPage;
-    public static final DashboardPage dashboardPage;
-    public static final AccountPage accountPage;
-    public static final AccountSettingsPage accountSettingsPage;
+    public static final EventsPage eventsPage;
 
     //Процесс инициализации необходимых ресурсов
     static {
@@ -35,13 +39,15 @@ public class StepDefinitions {
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         webDriver.manage().window().maximize();
+        lmsMainPage = new LMSMainPage(webDriver);
+        coursesPage = new LMSCoursesPage(webDriver);
+        registrationPage = new LMSRegistrationPage(webDriver);
+        loginPage = new LMSLoginPage(webDriver);
+        dashboardPage = new LMSDashboardPage(webDriver);
+        accountPage = new LMSAccountPage(webDriver);
+        accountSettingsPage = new LMSAccountSettingsPage(webDriver);
         mainPage = new MainPage(webDriver);
-        coursesPage = new CoursesPage(webDriver);
-        registrationPage = new RegistrationPage(webDriver);
-        loginPage = new LoginPage(webDriver);
-        dashboardPage = new DashboardPage(webDriver);
-        accountPage = new AccountPage(webDriver);
-        accountSettingsPage = new AccountSettingsPage(webDriver);
+        eventsPage = new EventsPage(webDriver);
     }
 
     @BeforeStep
@@ -51,12 +57,12 @@ public class StepDefinitions {
 
     @Given("url of school {string}")
     public void url_of_school(String url) {
-        mainPage.go(url);
+        lmsMainPage.go(url);
     }
 
     @Then("type course item {string}")
     public void type_course_item(String searchedCourseTitle) {
-        mainPage.searchCourse(searchedCourseTitle);
+        lmsMainPage.searchCourse(searchedCourseTitle);
     }
 
     @Then("assert that first course is named {string}")
@@ -86,12 +92,12 @@ public class StepDefinitions {
 
     @Then("click footer list items")
     public void clickFooterListItems() {
-        mainPage.clickFooterListItems();
+        lmsMainPage.clickFooterListItems();
     }
 
     @Then("click icon items")
     public void clickIconItems() {
-        mainPage.clickIconItems();
+        lmsMainPage.clickIconItems();
     }
 
     @Then("fill registration form with email {string}, fullName {string}, login {string}, password {string}, country {string}")
@@ -246,5 +252,35 @@ public class StepDefinitions {
     @Then("add linkedin link {string}")
     public void addLinkedinLinkWwwLinkedinComInTest(String linkedin) {
         accountSettingsPage.addLinkedinLink(linkedin);
+    }
+
+    @Then("click {string}")
+    public void clickCourseLinks(String courseName) {
+        mainPage.clickFilter(courseName);
+    }
+
+    @Then("click image for {string}")
+    public void click_image_for(String courseName) {
+        mainPage.clickImageLink(courseName);
+    }
+
+    @Then("click on Submit button")
+    public void click_on_submit_button() {
+        mainPage.clickSubmitBitton();
+    }
+
+    @Then("assert that error notifications appear for subscribe form {string}")
+    public void assert_that_error_notifications_appear_for_subscribe_form(String expectedError) {
+        mainPage.AssertErrorNotificationShown(expectedError);
+    }
+
+    @Then("click filter name {string}")
+    public void clickFilterName(String eventFilter) {
+        eventsPage.clickEventsFilter(eventFilter);
+    }
+
+    @And("assert that date for course is more then current date")
+    public void assertThatDateForCourseIsMoreThenCurrentDate() {
+        eventsPage.assertDateFilterSorts();
     }
 }

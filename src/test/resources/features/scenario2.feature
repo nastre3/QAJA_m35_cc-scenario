@@ -1,5 +1,5 @@
 #Gherkin
-Feature: SkillFactory ui-tests
+Feature: SkillFactory ui-tests on lms.skillfactory.ru (/register, /login, /dashboard)
   # Негативный сценарий: отправляется пустая форма регистрации
   Scenario: send empty registration form
     Given url of school 'https://lms.skillfactory.ru/register'

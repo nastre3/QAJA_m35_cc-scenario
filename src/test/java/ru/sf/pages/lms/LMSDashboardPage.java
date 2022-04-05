@@ -1,4 +1,4 @@
-package ru.sf.websitePages;
+package ru.sf.pages.lms;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -10,7 +10,7 @@ import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
 
-public record DashboardPage(WebDriver webDriver) {
+public record LMSDashboardPage(WebDriver webDriver) {
     private final static String SEARCH_COURSES_BUTTON = "btn-primary";
     private final static String DASHBOARD_SEARCH_INPUT_ID = "dashboard-search-input";
     private final static String DROPDOWN_ITEM_CLASS = "dropdown-nav-item";

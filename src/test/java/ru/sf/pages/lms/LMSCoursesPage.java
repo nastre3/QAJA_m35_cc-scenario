@@ -1,4 +1,4 @@
-package ru.sf.websitePages;
+package ru.sf.pages.lms;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public record CoursesPage(WebDriver webDriver) {
+public record LMSCoursesPage(WebDriver webDriver) {
     private final static String COURSE_STATUS_LABEL_CLASS = "discovery-message";
     private final static String COURSE_TITLE_CLASS = "course-title";
     private final static String COURSE_OPTIONS_CLASS = "facet-option";

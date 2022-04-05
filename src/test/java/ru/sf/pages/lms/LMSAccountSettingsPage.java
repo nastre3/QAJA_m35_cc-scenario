@@ -1,11 +1,11 @@
-package ru.sf.websitePages;
+package ru.sf.pages.lms;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public record AccountSettingsPage(WebDriver webDriver) {
+public record LMSAccountSettingsPage(WebDriver webDriver) {
     private final static String COUNTRY_ID = "u-field-select-country";
     private final static String TIME_ZONE_ID = "u-field-select-time_zone";
     private final static String EDUCATION_ID = "u-field-select-level_of_education";
