@@ -10,6 +10,7 @@ import ru.sf.pages.lms.*;
 import ru.sf.pages.website.EventsPage;
 import ru.sf.pages.website.MainPage;
 
+import java.text.ParseException;
 import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
@@ -280,7 +281,7 @@ public class StepDefinitions {
     }
 
     @And("assert that date for course is more then current date")
-    public void assertThatDateForCourseIsMoreThenCurrentDate() {
+    public void assertThatDateForCourseIsMoreThenCurrentDate() throws ParseException {
         eventsPage.assertDateFilterSorts();
     }
 }
