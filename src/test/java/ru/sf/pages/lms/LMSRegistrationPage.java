@@ -94,7 +94,7 @@ public record LMSRegistrationPage(WebDriver webDriver) {
     }
 
     private void WebDriverWait(By locator, String searchedText) {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(50));
         wait.until(ExpectedConditions.textToBePresentInElement(webDriver.findElement(locator),
                 searchedText)
         );

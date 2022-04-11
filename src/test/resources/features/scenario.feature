@@ -6,7 +6,7 @@ Feature: SkillFactory ui-tests on lms.skillfactory.ru
     Then type course item 'Data science'
     And assert that first course is named 'DS Акселератор'
   # Негативный сценарий: вводим несуществующее название курса в поиске, получаем сообщение о ненайденных результатах
-  Scenario: find course by typing course name in search field
+  Scenario: not found course by typing course name in search field
     Given url of school 'https://lms.skillfactory.ru/'
     Then type course item 'unknown'
     And assert that appears message 'Нет результатов для «unknown».'
@@ -23,6 +23,6 @@ Feature: SkillFactory ui-tests on lms.skillfactory.ru
   # Позитивный сценарий: заполняется корректно форма регистрации, получаем нотификацию об успехе
   Scenario: fill registration form correctly
     Given url of school 'https://lms.skillfactory.ru/register'
-    Then fill registration form with email 'test@mail.com', fullName 'testName', login 'testLogin', password 'testPassword', country 'Австралия'
+    Then fill registration form with email 'test@mail.com', fullName 'testName', login 'testLogin', password 'testPassword', country 'Австрия'
     Then click button create account
     And assert that correct login is shown

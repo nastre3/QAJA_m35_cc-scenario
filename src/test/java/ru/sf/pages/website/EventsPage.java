@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public record EventsPage(WebDriver webDriver) {
 
@@ -24,24 +25,12 @@ public record EventsPage(WebDriver webDriver) {
     }
 
     private void getFirstCourseDate() throws ParseException {
-        String firstCourseDate = webDriver.findElement(By.className("t774__uptitle")).getText();
-        Pattern pattern = Pattern.compile("* ?в ");
-        Matcher matcher = pattern.matcher(firstCourseDate);
+        String firstCourseDate = webDriver.findElement(By.className("t774__uptitle")).getText().substring(0, 10);
+        Date currentDate = new Date();
+        System.out.println("current currentDate: " + currentDate); // текущее время
 
-        while (matcher.find()) {
-            int start = matcher.start();
-            int end = matcher.end();
-            System.out.println("Found match\n" + firstCourseDate.substring(start, end) + "\nfrom " + start + " to " + (end - 1));
-        }
-
-        System.out.println("Clean the text");
-        System.out.println(matcher.replaceAll(""));
-
-        Date date = new Date();
-        System.out.println("current date: " + date); // текущее время
-
-        Date firstCourseDateFormatted = new SimpleDateFormat("d MMMM yyyy").parse("7 апреля " + "2022");
-        System.out.println("first date: " + firstCourseDateFormatted);
-        System.out.println(firstCourseDateFormatted.after(date));
+        Date firstCourseDateFormatted = new SimpleDateFormat("d MMMM yyyy").parse(firstCourseDate + "2022");
+        System.out.println("first course currentDate: " + firstCourseDateFormatted);
+        assertTrue(firstCourseDateFormatted.after(currentDate));
     }
 }

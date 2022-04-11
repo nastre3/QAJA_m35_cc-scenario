@@ -20,4 +20,8 @@ Feature: SkillFactory ui-tests on main page skillfactory.ru
     Given url of school 'https://skillfactory.ru/events'
     Then click filter name 'Актуальные мероприятия'
     And assert that date for course is more then current date
-
+  # Позитивный сценарий: кнопка Оставить заявку на странице /catalogue, получаем отправку заявки
+  Scenario: check Apply form on /catalogue
+    Given url of school 'https://skillfactory.ru/catalogue'
+    Then click button Send request
+    Then fill form with name 'Оставить заявку' with phone '' with 'email'

@@ -17,7 +17,8 @@ public record LMSMainPage(WebDriver webDriver) {
 
     public void searchCourse(String courseName) {
         final var searchInput = webDriver.findElement(By.className(SEARCH_INPUT_CLASS));
-        searchInput.sendKeys(courseName, Keys.ENTER);
+        searchInput.sendKeys(courseName);
+        searchInput.sendKeys(Keys.ENTER);
     }
 
     public void clickFooterListItems() {

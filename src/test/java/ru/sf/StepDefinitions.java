@@ -6,7 +6,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.sf.pages.lms.*;
+import ru.sf.pages.website.CataloguePage;
 import ru.sf.pages.website.EventsPage;
 import ru.sf.pages.website.MainPage;
 
@@ -33,6 +35,7 @@ public class StepDefinitions {
     public static final LMSAccountSettingsPage accountSettingsPage;
     public static final MainPage mainPage;
     public static final EventsPage eventsPage;
+    public static final CataloguePage cataloguePage;
 
     //Процесс инициализации необходимых ресурсов
     static {
@@ -49,6 +52,7 @@ public class StepDefinitions {
         accountSettingsPage = new LMSAccountSettingsPage(webDriver);
         mainPage = new MainPage(webDriver);
         eventsPage = new EventsPage(webDriver);
+        cataloguePage = new CataloguePage(webDriver);
     }
 
     @BeforeStep
@@ -283,5 +287,15 @@ public class StepDefinitions {
     @And("assert that date for course is more then current date")
     public void assertThatDateForCourseIsMoreThenCurrentDate() throws ParseException {
         eventsPage.assertDateFilterSorts();
+    }
+
+    @Then("click button Send request")
+    public void clickButtonSendForm() {
+        cataloguePage.clickButtonSendForm();
+    }
+
+    @Then("fill form with name {string} with phone {string} with {string}")
+    public void fillForm(String name, String phone, String email) {
+        cataloguePage.fillForm(name, phone, email);
     }
 }
