@@ -12,7 +12,10 @@ import static org.junit.Assert.assertEquals;
 public record MainPage(WebDriver webDriver) {
 
     public void clickFilter(String courseName) {
-        webDriver.findElement(By.partialLinkText(courseName)).click();
+        final var linkName = webDriver.findElement(By.partialLinkText(courseName));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(linkName));
+        linkName.click();
     }
 
     public void clickImageLink(String courseName) {

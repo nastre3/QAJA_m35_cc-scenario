@@ -1,12 +1,10 @@
 package ru.sf;
 
-import io.cucumber.java.BeforeStep;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.sf.pages.lms.*;
 import ru.sf.pages.website.CataloguePage;
 import ru.sf.pages.website.EventsPage;
@@ -17,12 +15,6 @@ import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
 
-
-/**
- * Варинаты запуска сценариев:
- * Команда 'mvn clean test' в консоли
- * Через UI intellij IDEA
- */
 public class StepDefinitions {
 
     public static final WebDriver webDriver;
@@ -53,11 +45,6 @@ public class StepDefinitions {
         mainPage = new MainPage(webDriver);
         eventsPage = new EventsPage(webDriver);
         cataloguePage = new CataloguePage(webDriver);
-    }
-
-    @BeforeStep
-    public void timeoutDelay() {
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Given("url of school {string}")
@@ -148,7 +135,7 @@ public class StepDefinitions {
         registrationPage.assertWrongErrorNotifications(email, login);
     }
 
-    @Then("fill login form incorrectly with email {string}, password {string}")
+    @Then("fill login form with email {string}, password {string}")
     public void fill_login_form_incorrectly_with_email_password(String email, String password) {
         loginPage.fillLoginFormIncorrectly(email, password);
     }
@@ -287,15 +274,5 @@ public class StepDefinitions {
     @And("assert that date for course is more then current date")
     public void assertThatDateForCourseIsMoreThenCurrentDate() throws ParseException {
         eventsPage.assertDateFilterSorts();
-    }
-
-    @Then("click button Send request")
-    public void clickButtonSendForm() {
-        cataloguePage.clickButtonSendForm();
-    }
-
-    @Then("fill form with name {string} with phone {string} with {string}")
-    public void fillForm(String name, String phone, String email) {
-        cataloguePage.fillForm(name, phone, email);
     }
 }

@@ -3,6 +3,10 @@ package ru.sf.pages.lms;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,6 +21,8 @@ public record LMSMainPage(WebDriver webDriver) {
 
     public void searchCourse(String courseName) {
         final var searchInput = webDriver.findElement(By.className(SEARCH_INPUT_CLASS));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(searchInput));
         searchInput.sendKeys(courseName);
         searchInput.sendKeys(Keys.ENTER);
     }

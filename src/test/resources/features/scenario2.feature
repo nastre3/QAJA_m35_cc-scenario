@@ -3,7 +3,7 @@ Feature: SkillFactory ui-tests on lms.skillfactory.ru (/register, /login, /dashb
   # Негативный сценарий: отправляется пустая форма регистрации
   Scenario: send empty registration form
     Given url of school 'https://lms.skillfactory.ru/register'
-    Then fill registration form incorrectly with email '', fullName '', login '', password '', country ''
+    Then fill registration form incorrectly with email '1', fullName '', login '1', password '1', country ''
     Then click button create account
     And assert that empty error notifications appear
   # Негативный сценарий: отправляется некорректно заполненная форма регистрации
@@ -15,19 +15,19 @@ Feature: SkillFactory ui-tests on lms.skillfactory.ru (/register, /login, /dashb
   # Негативный сценарий: отправляется пустая форма логина
   Scenario: send empty login form
     Given url of school 'https://lms.skillfactory.ru/login'
-    Then fill login form incorrectly with email '', password ''
+    Then fill login form with email '', password ''
     Then click button login
     And assert that empty login error notifications appear 'Пожалуйста, заполните поле Электронная почта.'
   # Негативный сценарий: отправляется неверно заполненная форма логина
   Scenario: send wrong filled login form
     Given url of school 'https://lms.skillfactory.ru/login'
-    Then fill login form incorrectly with email 'unknownemail10000@mail.com', password 'unknownemail10000'
+    Then fill login form with email 'unknownemail10000@mail.com', password 'unknownemail10000'
     Then click button login
     And assert that empty login error notifications appear 'Неверный адрес электронной почты или пароль.'
   # Позитивный сценарий: заполняется корректно форма логина, получаем открытие дашборада
   Scenario: fill login form correctly
     Given url of school 'https://lms.skillfactory.ru/login'
-    Then fill login form incorrectly with email 'user1648976275183@mail.ru', password 'password183'
+    Then fill login form with email 'user1648976275183@mail.ru', password 'password183'
     Then click button login
     And assert that correct login is shown 'login1648976275183'
   # Позитивный сценарий: функциональности в дашборде: кнопка "Посмотреть Курсы"
@@ -42,6 +42,9 @@ Feature: SkillFactory ui-tests on lms.skillfactory.ru (/register, /login, /dashb
     And assert that no results were found
   # Позитивный сценарий: изменение фото в профиле
   Scenario: change photo in profile
+    Given url of school 'https://lms.skillfactory.ru/login'
+    Then fill login form with email 'user1648976275183@mail.ru', password 'password183'
+    Then click button login
     Given url of school 'https://lms.skillfactory.ru/dashboard'
     Then click button Profile
     Then change photo

@@ -20,9 +20,4 @@ Feature: SkillFactory ui-tests on lms.skillfactory.ru
     Given url of school 'https://lms.skillfactory.ru/'
     Then click footer list items
     Then click icon items
-  # Позитивный сценарий: заполняется корректно форма регистрации, получаем нотификацию об успехе
-  Scenario: fill registration form correctly
-    Given url of school 'https://lms.skillfactory.ru/register'
-    Then fill registration form with email 'test@mail.com', fullName 'testName', login 'testLogin', password 'testPassword', country 'Австрия'
-    Then click button create account
-    And assert that correct login is shown
+
