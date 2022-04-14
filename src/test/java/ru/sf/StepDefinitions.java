@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 public class StepDefinitions {
 
-    public static final WebDriver webDriver;
+    public static WebDriver webDriver;
     public static final LMSMainPage lmsMainPage;
     public static final LMSCoursesPage coursesPage;
     public static final LMSRegistrationPage registrationPage;
