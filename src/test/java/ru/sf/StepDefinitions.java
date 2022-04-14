@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.sf.pages.lms.*;
 import ru.sf.pages.website.CataloguePage;
 import ru.sf.pages.website.EventsPage;
@@ -31,8 +32,8 @@ public class StepDefinitions {
 
     //Процесс инициализации необходимых ресурсов
     static {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        webDriver = new ChromeDriver();
+        System.setProperty("webdriver.firefox.driver", "src/test/resources/geckodriver.exe");
+        webDriver = new FirefoxDriver();
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         webDriver.manage().window().maximize();
         lmsMainPage = new LMSMainPage(webDriver);
