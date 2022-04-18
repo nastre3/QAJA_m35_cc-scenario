@@ -12,7 +12,8 @@ import static org.junit.Assert.assertEquals;
 
 public record LMSDashboardPage(WebDriver webDriver) {
     private final static String SEARCH_COURSES_BUTTON = "btn-primary";
-    private final static String DASHBOARD_SEARCH_INPUT_ID = "dashboard-search-input";
+    private final static String DASHBOARD_SEARCH_INPUT_CLASS = "search-field";
+    private final static String SEARCH_BUTTON_CLASS = "search-button";
     private final static String DROPDOWN_ITEM_CLASS = "dropdown-nav-item";
 
     public void ButtonSearchCourses() {
@@ -24,11 +25,11 @@ public record LMSDashboardPage(WebDriver webDriver) {
         assertEquals(openedURL, currentURL);
     }
 
-    public void fillSearchInput(String searchedPhrase) throws InterruptedException {
+    public void fillSearchInput(String searchedPhrase) {
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.presenceOfElementLocated((By.id(DASHBOARD_SEARCH_INPUT_ID))));
-        webDriver.findElement(By.id(DASHBOARD_SEARCH_INPUT_ID)).sendKeys(searchedPhrase);
-        webDriver.findElement(By.id(DASHBOARD_SEARCH_INPUT_ID)).sendKeys(Keys.ENTER);
+        wait.until(ExpectedConditions.presenceOfElementLocated((By.className(DASHBOARD_SEARCH_INPUT_CLASS))));
+        webDriver.findElement(By.className(DASHBOARD_SEARCH_INPUT_CLASS)).sendKeys(searchedPhrase);
+        webDriver.findElement(By.className(SEARCH_BUTTON_CLASS)).click();
     }
 
     public void assertSearchResultNotFound() {

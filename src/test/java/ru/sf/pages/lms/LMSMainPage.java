@@ -21,8 +21,6 @@ public record LMSMainPage(WebDriver webDriver) {
 
     public void searchCourse(String courseName) {
         final var searchInput = webDriver.findElement(By.className(SEARCH_INPUT_CLASS));
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(searchInput));
         searchInput.sendKeys(courseName);
         searchInput.sendKeys(Keys.ENTER);
     }

@@ -14,7 +14,7 @@ Feature: SkillFactory ui-tests on main page skillfactory.ru
   Scenario: check email subscribe form
     Given url of school 'https://skillfactory.ru/'
     Then click on Submit button
-    And assert that error notifications appear for subscribe form 'Пожалуйста, заполните все обязательные поля'
+    And assert that error notifications appear for subscribe form 'Please fill out all required fields'
   # Позитивный сценарий: фильтр мероприятий на странице /events, получаем открытие страниц
   Scenario: check filters on /events
     Given url of school 'https://skillfactory.ru/events'

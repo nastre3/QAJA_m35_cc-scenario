@@ -2,6 +2,7 @@ package ru.sf.pages.lms;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -9,12 +10,15 @@ import java.time.Duration;
 
 public record LMSCoursesPage(WebDriver webDriver) {
     private final static String COURSE_STATUS_LABEL_CLASS = "discovery-message";
-    private final static String COURSE_TITLE_CLASS = "course-title";
+    private final static String QUERY_CLASS = "query";
     private final static String COURSE_OPTIONS_CLASS = "facet-option";
     private final static String COURSE_ORGANIZATION_CLASS = "course-organization";
 
     public String getCourseTitle() {
-        return webDriver.findElement(By.className(COURSE_TITLE_CLASS)).getText();
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+                wait.until(ExpectedConditions.textToBePresentInElement(webDriver.findElement(By.className(QUERY_CLASS)),
+                "Data science"));
+        return webDriver.findElement(By.className(QUERY_CLASS)).getText();
     }
 
     public String getSearchStatusLabel() {

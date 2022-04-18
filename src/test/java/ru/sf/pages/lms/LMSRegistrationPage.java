@@ -1,7 +1,9 @@
 package ru.sf.pages.lms;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,8 +41,9 @@ public record LMSRegistrationPage(WebDriver webDriver) {
     }
 
     public void selectCountry(String country) {
+        webDriver.findElement(By.id("register-password")).sendKeys(Keys.TAB);
         Select drpCountry = new Select(webDriver.findElement((By.id(REGISTER_COUNTRY_ID))));
-        drpCountry.selectByVisibleText(country);
+        drpCountry.selectByValue(country);
     }
 
     public void clickButtonCreateAccount() {
@@ -52,14 +55,21 @@ public record LMSRegistrationPage(WebDriver webDriver) {
     }
 
     public void fillOptionalFields(String gender, String birthday, String education, String message) {
+        /*
+        webDriver.findElement(By.id(REGISTER_COUNTRY_ID)).click();
+        for (int i = 0; i < 2; i++) {
+            webDriver.findElement(By.id(REGISTER_COUNTRY_ID)).sendKeys(Keys.TAB);
+        }
+
+         */
         Select drpGender = new Select(webDriver.findElement((By.id(GENDER_ID))));
         drpGender.selectByValue(gender);
 
         Select drpBirthday = new Select(webDriver.findElement((By.id(BIRTHDAY_ID))));
-        drpBirthday.selectByVisibleText(birthday);
+        drpBirthday.selectByValue(birthday);
 
         Select drpEducation = new Select(webDriver.findElement((By.id(EDUCATION_ID))));
-        drpEducation.selectByVisibleText(education);
+        drpEducation.selectByValue(education);
 
         webDriver.findElement((By.id(MESSAGE_ID))).sendKeys(message);
     }

@@ -38,13 +38,10 @@ Feature: SkillFactory ui-tests on lms.skillfactory.ru (/register, /login, /dashb
   # Негативный сценарий: функциональности в дашборде: "Поиск по вашим курсам"
   Scenario: search words in bought courses in dashboard
     Given url of school 'https://lms.skillfactory.ru/dashboard'
-    Then fill search input 's'
+    Then fill search input 'ssssss'
     And assert that no results were found
   # Позитивный сценарий: изменение фото в профиле
   Scenario: change photo in profile
-    Given url of school 'https://lms.skillfactory.ru/login'
-    Then fill login form with email 'user1648976275183@mail.ru', password 'password183'
-    Then click button login
     Given url of school 'https://lms.skillfactory.ru/dashboard'
     Then click button Profile
     Then change photo

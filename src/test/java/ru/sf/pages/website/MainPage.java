@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public record MainPage(WebDriver webDriver) {
 
     public void clickFilter(String courseName) {
-        final var linkName = webDriver.findElement(By.partialLinkText(courseName));
+        final var linkName = webDriver.findElement(By.linkText(courseName));
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(linkName));
         linkName.click();
@@ -23,6 +23,8 @@ public record MainPage(WebDriver webDriver) {
     }
 
     public void clickSubmitBitton() {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("t-submit")));
         webDriver.findElement(By.className("t-submit")).click();
     }
 

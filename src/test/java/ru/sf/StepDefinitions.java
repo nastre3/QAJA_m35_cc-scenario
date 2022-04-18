@@ -3,9 +3,12 @@ package ru.sf;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.sf.pages.lms.*;
 import ru.sf.pages.website.CataloguePage;
 import ru.sf.pages.website.EventsPage;
@@ -15,6 +18,7 @@ import java.text.ParseException;
 import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class StepDefinitions {
 
@@ -58,11 +62,10 @@ public class StepDefinitions {
         lmsMainPage.searchCourse(searchedCourseTitle);
     }
 
-    @Then("assert that first course is named {string}")
-    public void assert_that_first_course_is_named(String expectedCourseTitle) {
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        final var courseTitle = coursesPage.getCourseTitle();
-        assertEquals(expectedCourseTitle, courseTitle);
+    @Then("assert that query is named {string}")
+    public void assert_that_query_is_named(String expectedCourseTitle) {
+        final var actualTitle = coursesPage.getCourseTitle();
+        assertEquals(actualTitle, expectedCourseTitle);
     }
 
     @Then("assert that appears message {string}")
@@ -93,11 +96,10 @@ public class StepDefinitions {
         lmsMainPage.clickIconItems();
     }
 
-    @Then("fill registration form with email {string}, fullName {string}, login {string}, password {string}, country {string}")
+    @Then("fill registration form with email {string}, fullName {string}, login {string}, password {string}")
     public void fill_registration_form_with_email_full_name_login_password_country
-            (String email, String fullName, String login, String password, String country) {
+            (String email, String fullName, String login, String password) {
         registrationPage.fillRegistrationForm(email, fullName, login, password);
-        registrationPage.selectCountry(country);
     }
 
     @Then("click button create account")
@@ -167,12 +169,13 @@ public class StepDefinitions {
     }
 
     @Then("fill search input {string}")
-    public void fill_search_input(String searchedPhrase) throws InterruptedException {
+    public void fill_search_input(String searchedPhrase) {
         dashboardPage.fillSearchInput(searchedPhrase);
     }
+
     @Then("assert that no results were found")
     public void assert_that_no_results_were_found() {
-       dashboardPage.assertSearchResultNotFound();
+        dashboardPage.assertSearchResultNotFound();
     }
 
     @Then("change photo")
@@ -183,11 +186,6 @@ public class StepDefinitions {
     @Then("click button Profile")
     public void clickButtonProfile() {
         dashboardPage.clickButtonProfile();
-    }
-
-    @Then("change photo wrongly")
-    public void changePhotoWrongly() {
-        accountPage.changePhotoWrongly();
     }
 
     @Then("open rightMenuPanel")
@@ -209,6 +207,7 @@ public class StepDefinitions {
     public void change_country(String country) {
         accountSettingsPage.selectCountry(country);
     }
+
     @Then("change timezone {string}")
     public void change_timezone(String timeZone) {
         accountSettingsPage.changeTimeZone(timeZone);
@@ -218,14 +217,17 @@ public class StepDefinitions {
     public void select_education(String education) {
         accountSettingsPage.selectEducation(education);
     }
+
     @Then("select gender {string}")
     public void select_gender(String gender) {
         accountSettingsPage.selectGender(gender);
     }
+
     @Then("select birthday {string}")
     public void select_birthday(String birthdayYear) {
         accountSettingsPage.selectBirthday(birthdayYear);
     }
+
     @Then("select language {string}")
     public void select_language(String language) {
         accountSettingsPage.selectLanguage(language);
@@ -275,5 +277,10 @@ public class StepDefinitions {
     @And("assert that date for course is more then current date")
     public void assertThatDateForCourseIsMoreThenCurrentDate() throws ParseException {
         eventsPage.assertDateFilterSorts();
+    }
+
+    @Then("choose country {string}")
+    public void chooseCountry(String country) {
+        registrationPage.selectCountry(country);
     }
 }
